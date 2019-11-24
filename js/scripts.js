@@ -144,7 +144,9 @@ $(document).ready(function(){
 
     var barChart;
     items = createItems(startSlide, endSlide);
-    console.log(items);
+    
+
+
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawinitBarChart);
     function drawinitBarChart() {
@@ -153,7 +155,8 @@ $(document).ready(function(){
         
         var options = {
             bars: 'horizontal', // Required for Material Bar Charts.,
-            backgroundColor: { fill:'transparent' }
+            backgroundColor: { fill:'transparent' },
+            vAxis : { textPosition : 'none' } 
         };
 
         barChart = new google.charts.Bar(document.getElementById('barchart_material'));
@@ -171,6 +174,7 @@ $(document).ready(function(){
         noUiSlider.create(behaviourSlider, {
             start: [startSlide, endSlide],
             step: 1,
+            tooltips: true,
             behaviour: 'drag',
             connect: true,
             format: wNumb({
@@ -392,11 +396,12 @@ $(document).ready(function(){
 
 
     function updateBarChart(startDate, endDate, items){
-        console.log(endDate);
-        var data2 = google.visualization.arrayToDataTable(items);
         
+        var data2 = google.visualization.arrayToDataTable(items);
+        console.log(data2);
         var options = {
-            bars: 'horizontal' 
+            bars: 'horizontal',
+            vAxis : { textPosition : 'in' } 
         };
 
         barChart.draw(data2, google.charts.Bar.convertOptions(options));
