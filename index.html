@@ -1,0 +1,186 @@
+
+<head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.2/nouislider.css">
+        <script src="js/wnumb.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.2/nouislider.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js" integrity="sha256-MCmDSoIMecFUw3f1LicZ/D/yonYAoHrgiep/3pCH9rw=" crossorigin="anonymous"></script>
+    
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <style>
+        .wakwaw{
+            top:100px;
+    
+            padding: 30px;
+        }
+        </style>
+    </head>
+    
+    <body>
+        
+        <div class="wakwaw">
+            <div id="behaviour"></div>
+    
+            
+        </div>
+
+        <label for="">Start Date</label>
+        <input type="text" id="startDate">
+        <label for="">End Date</label>
+        <input type="text" id="endDate">
+
+        
+        <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+    </body>
+    
+    <script>
+    
+    $(document).ready(function () {
+    
+        $.get('./id.json', function(data){
+            var json = data.data;
+            string = json;
+            var behaviourSlider = document.getElementById('behaviour');
+            var startSlide = 1;
+            var endSlide = 10;
+            noUiSlider.create(behaviourSlider, {
+                start: [startSlide, endSlide],
+                step: 1,
+                behaviour: 'drag',
+                connect: true,
+                format: wNumb({
+                decimals: 0
+            }),
+            tooltips: true,
+                range: {
+                    'min': 1,
+                    'max': 100
+                }
+            });
+            
+            $('#startDate').val(string[startSlide]);
+            $('#endDate').val(string[endSlide]);
+            $.getJSON( "data2.json", function(data) {
+                var tahun_awal = string[startSlide].substring(0,4)
+                var tahun_akhir = string[endSlide].substring(0,4);
+                var table = ['kelompok','jumlah aksi'];
+                var dict = {};
+
+                for (var i in data){
+                    if(i<=tahun_akhir && i>=tahun_awal)			
+                    for(var j in data[i]) {
+                        for(var k in data[i][j].data) {
+                            item = data[i][j].data[k].group;
+                            if(item!='Unknown'){
+                                dict[item] = (dict[item] + 1) || 1;
+                            }
+                        }
+                    }
+                }
+
+                // Create items array
+                var items = Object.keys(dict).map(function(key) {
+                return [key, dict[key]];
+                });
+
+                // Sort the array based on the second element
+                items.sort(function(first, second) {
+                return second[1] - first[1];
+                });
+
+                items = items.slice(0, 10);
+                items.splice(0,0,table);
+                
+                //console.log(items);   
+                google.charts.load('current', {'packages':['bar']});
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
+
+                    var data2 = google.visualization.arrayToDataTable(items);
+                    console.log(data2);
+                    var options = {
+                    chart: {
+                        title: 'Company Performance',
+                        subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                    },
+                    bars: 'horizontal' // Required for Material Bar Charts.
+                    };
+
+                    var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+                    chart.draw(data2, google.charts.Bar.convertOptions(options));
+                    google.visualization.events.addListener(chart, 'select', selectHandler);
+
+                    function selectHandler() {
+                        alert('You selected ');
+                    }     
+                }
+
+                });
+            behaviourSlider.noUiSlider.on('change', function(val){
+                
+                $.getJSON( "data2.json", function(data) {
+                    var tahun_awal = string[val[0]-1].substring(0,4)
+                    var tahun_akhir = string[val[1]-1].substring(0,4);
+                    var table = ['kelompok','jumlah aksi'];
+                    var dict = {};
+                    for (var i in data){
+                    if(i<=tahun_akhir && i>=tahun_awal)			
+                        for(var j in data[i]) {
+                            for(var k in data[i][j].data) {
+                                item = data[i][j].data[k].group;
+                                if(item!='Unknown'){
+                                    dict[item] = (dict[item] + 1) || 1;
+                                }
+                            }
+                        }
+                    }
+                    // Create items array
+                    var items = Object.keys(dict).map(function(key) {
+                    return [key, dict[key]];
+                    });
+
+                    // Sort the array based on the second element
+                    items.sort(function(first, second) {
+                    return second[1] - first[1];
+                    });
+
+                    items = items.slice(0, 10);
+                    items.splice(0,0,table);
+                
+                    //console.log(items);
+                    google.charts.load('current', {'packages':['bar']});
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+
+                        var data2 = google.visualization.arrayToDataTable(items);
+                        console.log(data2);
+                        var options = {
+                        chart: {
+                            title: 'Company Performance',
+                            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                        },
+                        bars: 'horizontal' // Required for Material Bar Charts.
+                        };
+
+                        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+                        chart.draw(data2, google.charts.Bar.convertOptions(options));
+                        google.visualization.events.addListener(chart, 'select', selectHandler);
+
+                        function selectHandler() {
+                            alert('You selected ');
+                        }     
+                    }
+
+                });
+            })
+                
+        })
+        
+        
+        
+    });
+    
+    </script>
