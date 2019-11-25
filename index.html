@@ -1,211 +1,264 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Visualization</title>
+	<!-- Favicon -->
+	
+	
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.2/nouislider.css">
+	
+
+    <link rel="shortcut icon" type="image/icon" href="assets/images/favicon.ico"/>
+    <!-- Font Awesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Slick slider -->
+    <link href="assets/css/slick.css" rel="stylesheet">
+    <!-- Theme color -->
+    <link id="switcher" href="assets/css/theme-color/default-theme.css" rel="stylesheet">
+
+
+    <!-- Main Style -->
+    <link href="style.css" rel="stylesheet">
+
+    <!-- Fonts -->
+
+    <!-- Open Sans for body and title font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
+ 
+	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.2/nouislider.css">
-    <script src="js/wNumb.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.2/nouislider.js"></script>
-    <!-- <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
-  
-    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-
-    <style>
-        #map {
-            width: 100%;
-            height:100%;
-        }
-        .container-fluid {
-            padding-top: 25px;
-            height: 100%;
-        }
-        .wakwaw{
-            position:absolute;
-            bottom: 3px;
-            width: 55%;
-            margin: 0px 20px;
-            z-index: 999;
-        }
-        .btn-mowapa{
-            background: red;
-            width: 50px;
-            height: 50px;
-
-        }
-        #line_top_x{
-            width: 100%;
-            height: 110px;
-        }
-        .wakwaw > .card{
-            border-color: transparent;
-            background-color: transparent;
-        }
-        </style>
-    <title>Hello, world!</title>
+	
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
-        <div class="d-none" class="inptDate">
-            <label for="">Start Date</label>
-            <input type="text" id="startDate">
-            <label for="">End Date</label>
-            <input type="text" id="endDate">
-        </div>
 
-        <div class="container-fluid">
-            <div class="row" style="height:100%;">
-                <div class="col-7">
-                    <div class="row" style="height:50%;">
-                        <div class="col-12">
-                                <div class="container">
-                                        <div id="map"></div>
-                                        <div class="wakwaw">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <!-- <h5>
-                                                                Tanggal : <span class="str-startDate"></span> SAMPAI <span class="str-endDate"></span>
-                                                        </h5> -->
-                                                        <div id="line_top_x"></div>
-                                                        <div id="behaviour"></div>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                    </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                                <div class="card" id="card-timeline">
-                                        <div class="card-header">
-                                            Timeline Terorisme
-                                            <button class="btn btn-secondary ml-auto" id="btn-detail-timeline">Detail</button>
-                                        </div>
-                                        <div class="card-body">
-                                            
-                                            <div id="example5.1" style="height: 350px; "></div>
-                                        </div>
-                                </div>
-                        </div>
-                    </div>
-                    
-                </div>
+  
+  	
+  	<!-- Start Header -->
+	<header id="mu-header" class="" role="banner">
+		<div class="mu-header-overlay">
+			<div class="container">
+				<div class="mu-header-area">
 
-                <div class="col-5"  style="height:100%;">
-                        <div class="card" style="height:100%;">
-                            <div class="card-header">
-                                Top 10 Kelompok Terorisme
-                            </div>
-                            <div class="card-body"  style="height:100%;">
-                                
-                                <div id="barchart_material" style="height: 100%;"></div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <div class="row" style="height: 50%;">
-                <div class="col-6">
-                        <div class="container">
-                                <div class="row" style="margin-top: 20px">
-                                    <div class="col-12">
-                                            
-                                    
-                                    </div>
-                                </div>
-                        </div>
-                        
-                </div>
-                <div class="col-6">
-                    <div class="container">
-                        <div class="row" style="margin-top: 20px">
-                            <div class="col-12">
-                                
+					<!-- Start Logo -->
+					<div class="mu-logo-area">
+						<!-- text based logo -->
+						<a class="mu-logo" href="#">Data Visualization</a>
+						<!-- image based logo -->
+						<!-- <a class="mu-logo" href="#"><img src="assets/images/logo.png" alt="logo img"></a> -->
+						<ol class="breadcrumb">
+						<li class="active"><a href="">Home</a></li>
+						<li><a href="datviz.html">Visualization</a></li>
+						<li><a href="heatmap.html">Heatmap</a></li>
+						</ol>
+						
+						
+						
+					</div>
+					<!-- End Logo -->
 
-                                
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
+					<!-- Start header featured area -->
+					<div class="mu-header-featured-area">
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    
-                        <div id="example5.2" style="height: 350px; "></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-                </div>
-            </div>
-        </div>
+						<div class="mu-header-featured-content">
+							<h1>Terrorist Attack in <span>Indonesia</span></h1>
+							<p>Visualisasi yang ditampilkan menjelaskan mengenai data kejadian terorisme di Indonesia dari tahun 1995 hingga 2018. 
+								Data tersebut diperoleh dari Global Terrorism Database (GTD). 
+								Tujuan dari visualisasi ini adalah :
+						</br>(1) melihat persebaran kejadian aksi terorisme di Indonesia beserta kelompok teroris yang melakukan aksi tersebut
+						</br>(2) melihat hubungan antara kelompok teroris yang melakukan aksi terorisme di Indonesia.
+								</p>
 
-        <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detail" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title detail-kota" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                        
-                        <h5 class="card-title">Grup Teroris</h5>
-                        <h6 class="card-subtitle mb-2 text-muted detail-grup"> </h6>
+							
 
-                        <h5 class="card-title">Tipe Serangan</h5>
-                        <h6 class="card-subtitle mb-2 text-muted detail-tipe-serangan"> </h6>
+						</div>
+					</div>
+					<!-- End header featured area -->
 
-                        <h5 class="card-title">Target Serangan</h5>
-                        <h6 class="card-subtitle mb-2 text-muted detail-target-serangan"> </h6>
-
-                        <h5 class="card-title">Jumlah Korban Meninggal</h5>
-                        <h6 class="card-subtitle mb-2 text-muted detail-target-serangan"> </h6>
-
-                        <h5 class="card-title">Tanggal</h5>
-                        <h6 class="card-subtitle mb-2 text-muted detail-tanggal-serangan"> </h6>
-                </div>
-                </div>
-            </div>
-        </div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- End Header -->
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	
+	<!-- Start main content -->
+		
+	<main role="main">
+		<!-- Start Feature -->
+		<section id="mu-feature">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="mu-feature-area">
+
+							<div class="mu-title-area">
+								<h2 class="mu-title">OUR VISUALIZATION FEATURES</h2>
+								<span class="mu-title-dot"></span>
+								
+							</div>
+
+							<!-- Start Feature Content -->
+							<div class="mu-feature-content">
+								<div class="row">
+									<div class="col-md-3">
+									</div>
+									<div class="col-md-6">
+										<div class="mu-feature-content-right">
+
+											<!-- Start single feature item -->
+											<div class="media">
+						                        <div class="media-left">
+						                        	<button class="btn mu-feature-btn" type="button">
+						                        		<i class="fa fa-tablet" aria-hidden="true"></i>
+						                        	</button>
+						                        </div>
+						                        <div class="media-body">
+							                        <h3 class="media-heading">Barcode Chart</h3>
+							                        <p>Barcode Chart digunakan untuk menggambarkan tren aksi yang dilakukan oleh masing-masing kelompok teroris. Masing-masing kelompok teroris akan memiliki barcode chart yang menampilkan aksi terorisme yang dilakukan berdasarkan tahun. Kelompok teroris yang ditampilkan pada barcode chart diurutkan berdasarkan jumlah aksi yang dilakukan selama 10 tahun terakhir. Insight yang dapat diperoleh dari chart ini adalah melihat kelompok teroris yang dinilai berbahaya berdasarkan keaktifan kelompok tersebut dalam melakukan aksi terorisme di Indonesia.
+														</p>
+						                        </div>
+						                    </div>
+						                    <!-- End single feature item -->
+
+						                    <!-- Start single feature item -->
+											<div class="media">
+						                        <div class="media-left">
+						                        	<button class="btn mu-feature-btn" type="button">
+						                        		<i class="fa fa-sliders" aria-hidden="true"></i>
+						                        	</button>
+						                        </div>
+						                        <div class="media-body">
+							                        <h3 class="media-heading">Maps</h3>
+							                        <p>Maps digunakan untuk melihat persebaran kejadian aksi terorisme di Indonesia berdasarkan lokasi dan tahun. Pembaca dapat melakukan interaksi dengan memanfaatkan slider pada maps. Slider berfungsi untuk melakukan filter terhadap tahun kejadian aksi terorisme sesuai dengan keinginan pembaca. Insight yang dapat diperoleh dari chart ini adalah melihat perkembangan persebaran aksi terorisme di Indonesia setiap tahunnya. 
+														</p>
+						                        </div>
+						                    </div>
+						                    <!-- End single feature item -->
+
+						                    <!-- Start single feature item -->
+											<div class="media">
+						                        <div class="media-left">
+						                        	<button class="btn mu-feature-btn" type="button">
+						                        		<i class="fa fa-tachometer" aria-hidden="true"></i>
+						                        	</button>
+						                        </div>
+						                        <div class="media-body">
+							                        <h3 class="media-heading">Bar Chart</h3>
+							                        <p>Bar chart digunakan untuk melihat 10 kelompok teroris yang paling berbahaya berdasarkan filter tahun yang dipilih pembaca dari slider pada maps. Masing-masing kelompok teroris memiliki barchart yang menampilkan nilai fearness, jumlah aksi, jumlah korban jiwa, dan jumlah korban luka. Nilai fearness diperoleh berdasarkan jumlah aksi (bobot=1), jumlah korban jiwa (bobot=3), dan jumlah korban luka (bobot=0,5). Bar chart diurutkan berdasarkan nilai fearness yang paling besar. Insight yang dapat diperoleh dari chart ini adalah melihat kelompok yang dinilai berbahaya berdasarkan fearness.
+														</p>
+						                        </div>
+						                    </div>
+						                    <!-- End single feature item -->
+
+						                    <!-- Start single feature item -->
+											<div class="media">
+						                        <div class="media-left">
+						                        	<button class="btn mu-feature-btn" type="button">
+						                        		<i class="fa fa-map-marker" aria-hidden="true"></i>
+						                        	</button>
+						                        </div>
+						                        <div class="media-body">
+							                        <h3 class="media-heading">Heat Map Matrix</h3>
+							                        <p>Heat map matrix digunakan untuk melihat hubungan antara masing-masing kelompok teroris berdasarkan jumlah aksi yang dilakukan secara bersamaan oleh 2 kelompok tersebut dalam kuarter yang sama. Insight yang dapat diperoleh dari chart ini adalah melihat kelompok yang memiliki hubungan yang besar dalam melakukan aksi terorisme di Indonesia.
+														</p>
+						                        </div>
+						                    </div>
+						                    <!-- End single feature item -->
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End Feature Content -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Feature -->
+
+
+		<!-- Start Download -->
+		<section id="mu-download">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="mu-download-area">
+
+							<div class="mu-title-area">
+								<h2 class="mu-title">MEMBER OF THE GROUP</h2>
+								<span class="mu-title-dot"></span>
+								
+							</div>
+
+
+							<div class="mu-download-content">
+								<a class="mu-apple-btn" href="#"><span>M Fiqri Ashiddiqi</span></a>
+								<a class="mu-google-btn" href="#"><span>Wisnu Arya Dipa</span></a>
+								<a class="mu-windows-btn" href="#"><span>Berman Danyel Sinaga</span></a>
+								<a class="mu-windows-btn" href="#"><span>Ardiansyah Setiadjati</span></a>
+								<a class="mu-windows-btn" href="#"><span>Ardhi Rizky Harahap</span></a>
+								<a class="mu-windows-btn" href="#"><span>Izuardo Zulkarnain</span></a>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Download -->
+			
+	<!-- Start footer -->
+	<footer id="mu-footer" role="contentinfo">
+			<div class="container">
+				<div class="mu-footer-area">
+					<p class="mu-copy-right">&copy; Copyright <a rel="nofollow" href="">Kelompok 1 Data Visualisasi Magister Informatika ITB 2019</a></p>
+				</div>
+			</div>
+
+	</footer>
+	<!-- End footer -->
+
+	
+	
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Bootstrap -->
     
     <script src="js/scripts.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+	<!-- Slick slider -->
+    <script type="text/javascript" src="assets/js/slick.min.js"></script>
+    <!-- Ajax contact form  -->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+  
     
-    <script>
-        
-            
-        
-    </script>
-</body>
+	
+    <!-- Custom js -->
+	<script type="text/javascript" src="assets/js/custom.js"></script>
+
+	
+	
+    
+  </body>
 </html>

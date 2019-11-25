@@ -90,21 +90,51 @@ $(document).ready(function(){
     });
 
     google.charts.load("current", {packages:["timeline"]});
-    google.charts.setOnLoadCallback(drawTimeline);
+    google.charts.setOnLoadCallback(drawBarcodeChart);
+    function drawBarcodeChart() {
+    $.getJSON( "timeline4.json", function(data) {
+        var tahun_awal = 2016;
+        var tahun_akhir = 2020;
+        var arr2 = data.data;
+        console.log(arr2);
+        /*for (var i in data){
+        if(i<=tahun_akhir && i>=tahun_awal)     
+            for(var j in data[i]) {
+            for(var k in data[i][j].data) {
+                item = data[i][j].data[k].group;
+                if(item!='Unknown'){
+                arr = [];
+                arr.push(data[i][j].data[k].group);
+                arr.push(data[i][j].data[k].space);
+                arr.push(data[i][j].data[k].color);
+                arr.push(data[i][j].data[k].start_date);
+                arr.push(data[i][j].data[k].end_date);
+                arr2.push(arr);
+                }
+            }         
+            }
+        }*/
 
-    function drawTimeline(){
-        var item = timelineData;
         table = ["Team", "qwerty",{ type: 'string', id: 'style', role: 'style' }, {type: 'date', label: 'Season Start Date'}, {type: 'date', label: 'Season End Date'}];
-        item.splice(0,0,table);
+        arr2.splice(0,0,table);
         var container = document.getElementById('example5.1');
         var chart = new google.visualization.Timeline(container);
-        var dataTable = new google.visualization.arrayToDataTable(item);
+        var dataTable = new google.visualization.arrayToDataTable(arr2);
         var options = {
-            tooltip:{trigger:'none'}
-        };
-        chart.draw(dataTable, options);
-    }
+        //timeline: { colorByRowLabel: true },
+        //tooltip:{trigger:'none'}
 
+        };
+
+        chart.draw(dataTable, options);
+    });
+    $.getJSON( "timeline.json", function(data) {
+        
+
+        //console.log(item);
+    });
+
+    }
     
     $.getJSON("RowInit.json", function(data){
         for( var i in data){
@@ -134,10 +164,16 @@ $(document).ready(function(){
         zoom: 5
     });
 
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox.light'
+	}).addTo(map);
 
+    console.log(statesData)
+    L.geoJSON(statesData).addTo(map);
     
     
     makeSliderRange(startSlide, endSlide);
@@ -263,7 +299,9 @@ $(document).ready(function(){
                                     arr.push(data[i][j].data[k].end_date);
                                     arr2.push(arr);
 
-                                    marker = L.marker([data[i][j].data[k].lat, data[i][j].data[k].lng]);
+                                    marker = L.marker([data[i][j].data[k].lat, data[i][j].data[k].lng], {
+                                            icon: fnGetIcon(data[i][j].data[k].attack_type)
+                                        });
                                     markersLayer.addLayer(marker);
                                 }
                             }
@@ -332,7 +370,9 @@ $(document).ready(function(){
                                     arr.push(data[i][j].data[k].end_date);
                                     arr2.push(arr);
 
-                                    marker = L.marker([data[i][j].data[k].lat, data[i][j].data[k].lng]);
+                                    marker = L.marker([data[i][j].data[k].lat, data[i][j].data[k].lng], {
+                                            icon: fnGetIcon(data[i][j].data[k].attack_type)
+                                        });
                                     markersLayer.addLayer(marker);
                                 }
                             }
@@ -359,16 +399,7 @@ $(document).ready(function(){
                 
                 table = ["Team", "qwerty",{ type: 'string', id: 'style', role: 'style' }, {type: 'date', label: 'Season Start Date'}, {type: 'date', label: 'Season End Date'}];
                 arr2.splice(0,0,table);
-                var container = document.getElementById('example5.1');
-                var chart = new google.visualization.Timeline(container);
-                var dataTable = new google.visualization.arrayToDataTable(arr2);
-                var options = {
-                    //timeline: { colorByRowLabel: true },
-                    tooltip:{trigger:'none'}
-
-                };
-
-                chart.draw(dataTable, options);
+                
 
                 $('#btn-detail-timeline').on('click', function(e){
                     $("#card-timeline").animate({height: '90%', width: '90%', position: 'absolute'});
@@ -408,7 +439,7 @@ $(document).ready(function(){
         google.visualization.events.addListener(barChart, 'select', selectHandler);
 
         function selectHandler() {
-
+            console.log('asasda')
             var arrLatLng = [];
             $.get('./id.json', function(data){
                 var json = data.data;
