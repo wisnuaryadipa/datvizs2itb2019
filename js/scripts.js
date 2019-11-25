@@ -172,8 +172,6 @@ $(document).ready(function(){
 		id: 'mapbox.light'
 	}).addTo(map);
 
-    console.log(statesData)
-    L.geoJSON(statesData).addTo(map);
     
     
     makeSliderRange(startSlide, endSlide);
