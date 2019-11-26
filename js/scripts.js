@@ -96,7 +96,7 @@ $(document).ready(function(){
         var tahun_awal = 2016;
         var tahun_akhir = 2020;
         var arr2 = data.data;
-        console.log(arr2);
+        // console.log(arr2);
         /*for (var i in data){
         if(i<=tahun_akhir && i>=tahun_awal)     
             for(var j in data[i]) {
@@ -172,6 +172,7 @@ $(document).ready(function(){
 		id: 'mapbox.light'
 	}).addTo(map);
 
+    // console.log(statesData)
     
     
     makeSliderRange(startSlide, endSlide);
@@ -299,7 +300,18 @@ $(document).ready(function(){
 
                                     marker = L.marker([data[i][j].data[k].lat, data[i][j].data[k].lng], {
                                             icon: fnGetIcon(data[i][j].data[k].attack_type)
+                                        }).on('click', function(e){
+                                            $('#detailModal').modal('show');
+                                            $(this).attr('id',data[i][j].data[k].index);
+                                            
+                                            $('.detail-grup').html(this.key.group);
+                                            $('.detail-tipe-serangan').html(this.key.attack_type);
+                                            $('.detail-target-serangan').html(this.key.target);
+                                            $('.detail-nkill').html(this.key.nkill);
+                                            $('.detail-tanggal-serangan').html(this.key.id);
+                                            
                                         });
+                                        marker.key = data[i][j].data[k];
                                     markersLayer.addLayer(marker);
                                 }
                             }
@@ -370,7 +382,18 @@ $(document).ready(function(){
 
                                     marker = L.marker([data[i][j].data[k].lat, data[i][j].data[k].lng], {
                                             icon: fnGetIcon(data[i][j].data[k].attack_type)
+                                        }).on('click', function(e){
+                                            $('#detailModal').modal('show');
+                                            $(this).attr('id',data[i][j].data[k].index);
+                                            
+                                            $('.detail-grup').html(this.key.group);
+                                            $('.detail-tipe-serangan').html(this.key.attack_type);
+                                            $('.detail-target-serangan').html(this.key.target);
+                                            $('.detail-nkill').html(this.key.nkill);
+                                            $('.detail-tanggal-serangan').html(this.key.id);
+                                            
                                         });
+                                        marker.key = data[i][j].data[k];
                                     markersLayer.addLayer(marker);
                                 }
                             }
@@ -401,7 +424,7 @@ $(document).ready(function(){
 
                 $('#btn-detail-timeline').on('click', function(e){
                     $("#card-timeline").animate({height: '90%', width: '90%', position: 'absolute'});
-                    console.log(arr2);
+                    // console.log(arr2);
                     table = ["Team", "qwerty",{ type: 'string', id: 'style', role: 'style' }, {type: 'date', label: 'Season Start Date'}, {type: 'date', label: 'Season End Date'}];
                     arr2.splice(0,0,table);
                     var container = document.getElementById('example5.2');
@@ -427,7 +450,7 @@ $(document).ready(function(){
     function updateBarChart(startDate, endDate, items){
         
         var data2 = google.visualization.arrayToDataTable(items);
-        console.log(data2);
+        // console.log(data2);
         var options = {
             bars: 'horizontal',
             vAxis : { textPosition : 'in' } 
@@ -437,7 +460,7 @@ $(document).ready(function(){
         google.visualization.events.addListener(barChart, 'select', selectHandler);
 
         function selectHandler() {
-            console.log('asasda')
+            // console.log('asasda')
             var arrLatLng = [];
             $.get('./id.json', function(data){
                 var json = data.data;
@@ -456,7 +479,7 @@ $(document).ready(function(){
                                 for(var k in data[i][j].data) {
                                     item = data[i][j].data[k].group;
                                     if(item == label){
-                                        console.log(data[i][j].data[k].index);
+                                        // console.log(data[i][j].data[k].index);
                                         marker[data[i][j].data[k].index] = L.marker([data[i][j].data[k].lat, data[i][j].data[k].lng], 
                                         {
                                             icon: fnGetIcon(data[i][j].data[k].attack_type)
@@ -464,7 +487,14 @@ $(document).ready(function(){
                                             $('#detailModal').modal('show');
                                             $(this).attr('id',data[i][j].data[k].index);
                                             
+                                            $('.detail-grup').html(this.key.group);
+                                            $('.detail-tipe-serangan').html(this.key.attack_type);
+                                            $('.detail-target-serangan').html(this.key.target);
+                                            $('.detail-nkill').html(this.key.nkill);
+                                            $('.detail-tanggal-serangan').html(this.key.id);
+                                            
                                         });
+                                        marker[data[i][j].data[k].index].key = data[i][j].data[k];
                                         markersLayer.addLayer(marker[data[i][j].data[k].index]);
                                         arrLatLng.push(marker[data[i][j].data[k].index]);
                                     }
@@ -472,7 +502,7 @@ $(document).ready(function(){
                             }
                         }	      
                     }
-                    console.log(arrLatLng)
+                    // console.log(arrLatLng)
                     var group = new L.featureGroup(arrLatLng);
                     map.fitBounds(group.getBounds());
 
