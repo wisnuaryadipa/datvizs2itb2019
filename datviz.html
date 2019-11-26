@@ -60,6 +60,18 @@
     <title>Hello, world!</title>
   </head>
   <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="index.html">Home</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Visualization</a>
+                    <a class="nav-item nav-link" href="heatmap.html">Heatmap</a>
+                    </div>
+                </div>
+                </nav>
         <div class="d-none" class="inptDate">
             <label for="">Start Date</label>
             <input type="text" id="startDate">
@@ -68,18 +80,7 @@
         </div>
 
         <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="indeh.html">Home</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                        <a class="nav-item nav-link active" href="#">Visualization</a>
-                        <a class="nav-item nav-link" href="heatmap.html">Heatmap</a>
-                        </div>
-                    </div>
-                    </nav>
+                
             <div class="row" style="height:90%;">
                 <div class="col-8" style="height:100%;">
                         <div id="map"></div>
@@ -162,7 +163,7 @@
                         <h6 class="card-subtitle mb-2 text-muted detail-target-serangan"> </h6>
 
                         <h5 class="card-title">Jumlah Korban Meninggal</h5>
-                        <h6 class="card-subtitle mb-2 text-muted detail-target-serangan"> </h6>
+                        <h6 class="card-subtitle mb-2 text-muted detail-nkill"> </h6>
 
                         <h5 class="card-title">Tanggal</h5>
                         <h6 class="card-subtitle mb-2 text-muted detail-tanggal-serangan"> </h6>
